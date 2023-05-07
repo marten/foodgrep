@@ -1,6 +1,7 @@
 import { groupBy } from "lodash";
 import type { Restaurant } from "./types";
 
+// prettier-ignore
 export const restaurants: Restaurant[] = [
   {
     id: "piccola-roma-beilen",
@@ -134,7 +135,7 @@ export const restaurants: Restaurant[] = [
 export const restaurantsByLocation = groupBy(restaurants, (r) => r.location);
 
 export const getRestaurant = (id: string) => {
-  const match = restaurants.find(restaurant => restaurant.id === id);
+  const match = restaurants.find((restaurant) => restaurant.id === id);
   if (!match) throw new Error("Not found");
-  return match
-}
+  return match;
+};
