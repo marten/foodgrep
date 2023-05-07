@@ -1,11 +1,16 @@
 import { groupBy, map } from "lodash";
 import { MenuItem } from "../types";
+import { NoFood } from "./NoFood";
 
 interface Props {
   menuItems: MenuItem[];
 }
 
 export const MenuItems: React.FC<Props> = (props) => {
+  if (props.menuItems.length === 0) {
+    return <NoFood />;
+  }
+
   const byCategory = groupBy(props.menuItems, (item) => item.category);
 
   return (
