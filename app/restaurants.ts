@@ -362,7 +362,7 @@ export const restaurants: Restaurant[] = [
       {"id": "", "name": "Harissa", "category": "Sauzen", "price": "0.70", "description": ""},
       {"id": "", "name": "Kruidenboter ( zelfgemaak)", "category": "Sauzen", "price": "2.50", "description": ""}
     ]
-  },
+  }
 ];
 
 export const restaurantsByLocation = groupBy(restaurants, (r) => r.location);
