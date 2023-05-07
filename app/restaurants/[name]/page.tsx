@@ -1,11 +1,15 @@
 "use client";
 
 import { MenuItems } from "@/app/components/MenuItems";
-import { getRestaurant } from "@/app/restaurants";
+import { getRestaurant, restaurants } from "@/app/restaurants";
 import { MenuItem } from "@/app/types";
 import { useState } from "react";
 
 type Params = { name: string };
+
+export async function generateStaticParams() {
+  return restaurants.map((restaurant) => ({name: restaurant.id}))
+}
 
 export default function RestaurantPage({ params }: { params: Params }) {
   const [filter, setFilter] = useState("");
@@ -14,7 +18,7 @@ export default function RestaurantPage({ params }: { params: Params }) {
   const restaurant = getRestaurant(params.name);
   let matches = grep(restaurant.menu, filter);
 
-  if (hungry) {
+  if (hungry && matches.length > 0) {
     const idx = getRandomIntInclusive(0, matches.length - 1);
     matches = [matches[idx]];
   }
@@ -38,7 +42,7 @@ export default function RestaurantPage({ params }: { params: Params }) {
           type="text"
           placeholder="Grep"
           autoFocus
-          className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mb-1"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         />
@@ -48,12 +52,13 @@ export default function RestaurantPage({ params }: { params: Params }) {
             type="checkbox"
             checked={hungry}
             onChange={(e) => setHungry(e.target.checked)}
+            className="mr-1"
           />
-          Ik heb NU honger
+          Ik kan niet kiezen
         </label>
       </div>
 
-      <div className="border-2 p-2 rounded-md">
+      <div className="p-4 bg-white rounded-md">
         <MenuItems menuItems={matches} />
       </div>
     </main>

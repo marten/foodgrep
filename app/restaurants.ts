@@ -129,6 +129,13 @@ export const restaurants: Restaurant[] = [
       {category: "Bijgerechten", id: 6, name: "Loempia met Rundvlees", price: "7.50"},
       {category: "Bijgerechten", id: 7, name: "Loempia met 2 stokjes Saté", price: "7.20"}
     ]
+  },
+  {
+    id: "kleine-moghul",
+    name: "De Kleine Moghul",
+    location: "Groningen",
+    menu: [
+    ]
   }
 ];
 
