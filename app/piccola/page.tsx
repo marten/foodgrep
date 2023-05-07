@@ -15,7 +15,7 @@ export default function Home() {
 
   let products = data.filter(
     (product) =>
-      product.name.includes(filter) || product.description.includes(filter)
+      product.name.includes(filter) || product.description?.includes(filter)
   );
 
   if (hungry) {
@@ -25,6 +25,10 @@ export default function Home() {
 
   return (
     <main className="p-4">
+      <header className="text-lg mb-4">
+        Piccola Roma, Beilen.
+        <span className="ml-2">0593 52 72 88</span>
+      </header>
       <div className="b-2 rounded-md bg-amber-200 p-4 mb-4">
         <input
           type="text"
@@ -46,17 +50,17 @@ export default function Home() {
       </div>
 
       <div className='border-2 p-2 rounded-md'>
-        <table>
+        <table className="table-auto min-w-full divide-y divide-gray-300">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Categorie</th>
-              <th>Naam</th>
-              <th>Wat</th>
-              <th>Prijs</th>
+              <th className="w-8 text-left">ID</th>
+              <th className="text-left">Categorie</th>
+              <th className="text-left">Naam</th>
+              <th className="text-left">Wat</th>
+              <th className="w-16 text-left">Prijs</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-200">
             {products.map((product) => (
               <tr key={`${product.category}-${product.id}`}>
                 <td>{product.id}</td>
