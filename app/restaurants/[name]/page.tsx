@@ -23,7 +23,14 @@ export default function RestaurantPage({ params }: { params: Params }) {
     <main className="p-4">
       <header className="text-lg mb-4">
         {restaurant.name}, {restaurant.location}.
-        <span className="ml-2">{restaurant.phone}</span>
+        {restaurant.phone && (
+          <a
+            href={`tel:${restaurant.phone.replaceAll(" ", "")}`}
+            className="ml-2"
+          >
+            {restaurant.phone}
+          </a>
+        )}
       </header>
 
       <div className="b-2 rounded-md bg-amber-200 p-4 mb-4">
@@ -54,18 +61,24 @@ export default function RestaurantPage({ params }: { params: Params }) {
 }
 
 function grep(menuItems: MenuItem[], searchString: string): MenuItem[] {
-  const terms = searchString.split(" ").map((term) => term.trim().toLowerCase());
+  const terms = searchString
+    .split(" ")
+    .map((term) => term.trim().toLowerCase());
 
   if (terms.length === 0) return menuItems;
 
-  return menuItems.filter(
-    (menuItem) =>
-      terms.map(term => isMatch(menuItem, term)).reduce((acc, curr) => acc && curr, true)
+  return menuItems.filter((menuItem) =>
+    terms
+      .map((term) => isMatch(menuItem, term))
+      .reduce((acc, curr) => acc && curr, true)
   );
 }
 
 function isMatch(menuItem: MenuItem, term: string) {
-  return menuItem.name.toLowerCase().includes(term) || menuItem.description?.toLowerCase()?.includes(term)
+  return (
+    menuItem.name.toLowerCase().includes(term) ||
+    menuItem.description?.toLowerCase()?.includes(term)
+  );
 }
 
 function getRandomIntInclusive(min: number, max: number) {
